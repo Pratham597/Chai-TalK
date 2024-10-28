@@ -92,7 +92,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   useEffect(() => {
-    socket = io("http://localhost:3000");
+    socket = io("https://chai-talk.vercel.app/");
     socket.emit("setup", user);
     socket.on("connected", () => setSocketConnected(true));
   }, []);
