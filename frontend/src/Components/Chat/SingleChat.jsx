@@ -11,7 +11,7 @@ import {
   Text,
   useToast,
   VStack,
-  Divider
+  Divider,
 } from "@chakra-ui/react";
 import { BiArrowBack } from "react-icons/bi";
 import ProfileModal from "./ProfileModal";
@@ -33,13 +33,11 @@ const defaultOptions = {
   },
 };
 
-
-
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat, notification, setNotification } =
     getChatContext();
   const [messages, setMessages] = useState([]);
-  const [messageDate, setMessageDate] = useState([])
+  const [messageDate, setMessageDate] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
@@ -76,7 +74,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         config
       );
       setMessages(data);
-      setMessageDate(groupMessagesByDate(data))
+      setMessageDate(groupMessagesByDate(data));
       setLoading(false);
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
@@ -92,9 +90,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   useEffect(() => {
-    socket = io("https://chai-talk.vercel.app/");
-    socket.emit("setup", user);
-    socket.on("connected", () => setSocketConnected(true));
+    try {
+      socket = io("https://chaitalk.vercel.app/");
+      socket.emit("setup", user);
+      socket.on("connected", () => setSocketConnected(true));
+    } catch (error) {
+      console.log("Something went wrong");
+    }
   }, []);
 
   useEffect(() => {
@@ -103,7 +105,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [selectedChat]);
 
   useEffect(() => {
-    console.log(messageDate)
+    console.log(messageDate);
     socket.on("typing", (curruser, room) => {
       if (curruser._id !== user._id && room == selectedChatCompare._id) {
         setTypingName(curruser.name);
@@ -128,7 +130,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         }
       } else {
         setMessages([...messages, newMessage]);
-        setMessageDate(groupMessagesByDate([...messages,newMessage]))
+        setMessageDate(groupMessagesByDate([...messages, newMessage]));
       }
     });
   });
@@ -147,7 +149,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         const { data } = await axios.post("/api/message", apidata, config);
         setNewMessage("");
         setMessages([...messages, data]);
-        setMessageDate(groupMessagesByDate([...messages,data]))
+        setMessageDate(groupMessagesByDate([...messages, data]));
         socket.emit("new message", data);
       } catch (error) {
         toast({
@@ -231,29 +233,29 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <Spinner size={"lg"} margin={"auto"} />
             ) : (
               <>
-                  <VStack align="stretch" spacing={3} className="messages">
-                    {Object.keys(messageDate).map((date) => (
-                      <Box key={date} py={4} >
-                        <Text
-                          fontSize="md"
-                          fontWeight="bold"
-                          backgroundColor={'#E0E0E0'}
-                          p={1}
-                          borderRadius={5}
-                          color="gray.600"
-                          mb={2}
-                          mx={'auto'}
-                          width={'-webkit-fit-content'}
-                        >
-                          {format(new Date(date), "MMMM d, yyyy")}
-                        </Text>
-                        <VStack align="stretch" spacing={2}>
-                          <ScrollableChat messages={messageDate[date]} />
-                        </VStack>
-                        <Divider  />
-                      </Box>
-                    ))}
-                  </VStack>
+                <VStack align="stretch" spacing={3} className="messages">
+                  {Object.keys(messageDate).map((date) => (
+                    <Box key={date} py={4}>
+                      <Text
+                        fontSize="md"
+                        fontWeight="bold"
+                        backgroundColor={"#E0E0E0"}
+                        p={1}
+                        borderRadius={5}
+                        color="gray.600"
+                        mb={2}
+                        mx={"auto"}
+                        width={"-webkit-fit-content"}
+                      >
+                        {format(new Date(date), "MMMM d, yyyy")}
+                      </Text>
+                      <VStack align="stretch" spacing={2}>
+                        <ScrollableChat messages={messageDate[date]} />
+                      </VStack>
+                      <Divider />
+                    </Box>
+                  ))}
+                </VStack>
                 {typing && (
                   <div
                     style={{

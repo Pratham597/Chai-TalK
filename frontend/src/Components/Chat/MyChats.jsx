@@ -64,7 +64,7 @@ const MyChats = ({fetchAgain}) => {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        My Chats
+        <Text fontFamily={'Open sans'} fontSize={{base:'20px',sm:'30px'}} >My Chats</Text>
         <GroupChatModal>
           <Button
             display={"flex"}
@@ -99,7 +99,8 @@ const MyChats = ({fetchAgain}) => {
                 border={3}
                 key={chat._id}
               >
-                <Text>{!chat.isGroupChat ? getSender(chat) : chat.chatName}</Text>
+                <Text fontFamily={'Open sans'}>{!chat.isGroupChat ? getSender(chat) : chat.chatName}</Text>
+                <Text fontSize={'sm'} fontWeight={'200'} fontFamily={'Open sans'}>{`${chat.latestMessage?.sender.name}: ${chat.latestMessage?.content}`}</Text>
               </Box>
             ))}
           </Stack>
