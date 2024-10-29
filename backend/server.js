@@ -50,9 +50,7 @@ const server = app.listen(port, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: '*', // Allow all origins (not recommended for production)
-    methods: ['GET', 'POST'],
-    credentials: true,
+    origin: '*'
   },
 });
 

@@ -91,9 +91,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     try {
-      socket = io("https://chai-talk-backend.vercel.app",{
-        transports: ['polling', 'websocket']
-      });
+      socket = io(`${api}`);
       socket.emit("setup", user);
       socket.on("connected", () => setSocketConnected(true));
 
