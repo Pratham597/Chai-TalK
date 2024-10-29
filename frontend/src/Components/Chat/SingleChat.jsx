@@ -91,7 +91,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     try {
-      socket = io(`${api}:3000`);
+      socket = io(`${api}`,{
+  
+        reconnection:true,
+        reconnectionAttempts:5
+      });
       socket.emit("setup", user);
       socket.on("connected", () => setSocketConnected(true));
 

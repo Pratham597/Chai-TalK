@@ -8,9 +8,11 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import mongoose from "mongoose";
 import cors from 'cors'
 import { Server } from "socket.io";
+import { createServer } from "http";
 
 // Creating an App;
 const app = express();
+const httpServer = createServer(app);
 const port = process.env.PORT;
 
 async function connectDB() {
@@ -26,21 +28,13 @@ connectDB().then(() => {
 
 app.use(cors())
 
-const server = app.listen(port, () => {
-  console.log("App is listening on given port ");
-});
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://chaitalk.vercel.app/"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
-const io = new Server(server, {
+const io = new Server(httpServer, {
   cors: {
     origin: '*',
-    allowedHeaders:'*',
   },
+  allowEIO3 :true
 });
 
 io.on("connection", (socket) => {
@@ -97,7 +91,9 @@ app.use("/api/message", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-
+httpServer.listen(port, () => {
+  console.log("App is listening on given port ");
+});
 
 
 
