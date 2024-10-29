@@ -91,7 +91,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     try {
-      socket = io("https://chaitalk.vercel.app/");
+      socket = io("https://chai-talk-backend.vercel.app/");
       socket.emit("setup", user);
       socket.on("connected", () => setSocketConnected(true));
     } catch (error) {
@@ -105,7 +105,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [selectedChat]);
 
   useEffect(() => {
-    console.log(messageDate);
     socket.on("typing", (curruser, room) => {
       if (curruser._id !== user._id && room == selectedChatCompare._id) {
         setTypingName(curruser.name);
