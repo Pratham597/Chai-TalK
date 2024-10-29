@@ -16,7 +16,6 @@ const api=import.meta.env.VITE_API_URL
 
 
 const Login = () => {
-  console.log(api)
   const toast = useToast();
   const [form, setForm] = useState({ emailLogin: "", passwordLogin: "" });
   const [loading, setLoading] = useState(false);
@@ -62,7 +61,6 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(data));
       navigate("/chat");
     } catch (error) {
-      console.log(error)
       let err=JSON.parse(error.request.response).message
       toast({
         title: `${err}`,
