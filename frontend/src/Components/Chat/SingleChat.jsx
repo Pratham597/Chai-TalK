@@ -91,9 +91,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     try {
-      socket = io("https://chai-talk-backend.vercel.app");
+      socket = io("https://chai-talk-backend.vercel.app",{
+        transports: ['polling', 'websocket']
+      });
       socket.emit("setup", user);
       socket.on("connected", () => setSocketConnected(true));
+
+      socket.on("connect_error", (err) => {
+        console.error("Connection Error:", err.message);
+      });
+    
+      socket.on("connect_timeout", (timeout) => {
+        console.error("Connection Timeout:", timeout);
+      });
     } catch (error) {
       console.log("Something went wrong");
     }
