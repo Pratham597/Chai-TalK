@@ -17,6 +17,7 @@ import {
   Button,
   Box,
 } from "@chakra-ui/react";
+const api=import.meta.env.VITE_API_URL
 import { getChatContext } from "../../Context/ChatProvider";
 import UserList from "../User/UserList";
 const GroupChatModal = ({ children }) => {
@@ -52,7 +53,7 @@ const GroupChatModal = ({ children }) => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `/api/user?search=${username}`,
+        `${api}/api/user?search=${username}`,
         config
       );
       setSearchResults(data);
@@ -97,7 +98,7 @@ const GroupChatModal = ({ children }) => {
         }
       }
       const apiData={users:groupMembers,name:chatName}
-      const {data}=await axios.post('/api/chat/group',apiData,config)
+      const {data}=await axios.post(`${api}/api/chat/group`,apiData,config)
       setChats((chats)=>[data,...chats])
       onClose();
       toast({

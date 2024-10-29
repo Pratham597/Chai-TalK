@@ -7,6 +7,7 @@ import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+const api=import.meta.env.VITE_API_URL
 const SignUp = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -113,7 +114,7 @@ const SignUp = () => {
           "Content-Type": "application/json",
         }
       }
-      let {data}=await axios.post('/api/user',{...form,profilePic:pic,verify:true},config)
+      let {data}=await axios.post(`${api}/api/user`,{...form,profilePic:pic,verify:true},config)
       toast({
         title: "Registration Succesfull",
         status: "success",
@@ -169,7 +170,7 @@ const SignUp = () => {
           "Content-Type": "application/json",
         }
       }
-      const {data}=await axios.post('api/user/verifyEmail',{...form,profilePic:pic},config)
+      const {data}=await axios.post(`${api}/api/user/verifyEmail`,{...form,profilePic:pic},config)
       setActualOTP(data.message)
       setOtpSent(true)
       setOtpLoading(false)

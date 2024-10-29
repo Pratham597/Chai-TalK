@@ -23,7 +23,7 @@ import animationData from "../../animations/typingIndicator.json";
 import Lottie from "react-lottie";
 import { format } from "date-fns";
 let socket, selectedChatCompare;
-
+const api=import.meta.env.VITE_API_URL
 const defaultOptions = {
   loop: true,
   autoplay: true,
@@ -70,7 +70,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.get(
-        `/api/message/${selectedChat._id}`,
+        `${api}/api/message/${selectedChat._id}`,
         config
       );
       setMessages(data);
@@ -145,7 +145,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
         };
         const apidata = { chatId: selectedChat._id, content: newMessage };
-        const { data } = await axios.post("/api/message", apidata, config);
+        const { data } = await axios.post(`${api}/api/message`, apidata, config);
         setNewMessage("");
         setMessages([...messages, data]);
         setMessageDate(groupMessagesByDate([...messages, data]));

@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import UserBadgeItem from "../User/UserBadgeItem.jsx";
 import UserList from "../User/UserList.jsx";
+const api=import.meta.env.VITE_API_URL
 const UpdateGroupChatModal = ({ fetchAgain ,setFetchAgain, fetchMessages}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {selectedChat,setSelectedChat,user}=getChatContext()
@@ -46,7 +47,7 @@ const UpdateGroupChatModal = ({ fetchAgain ,setFetchAgain, fetchMessages}) => {
         }
       }
       const apiData={chatId:selectedChat._id,userId:existuser._id}
-      const {data}=await axios.put('/api/chat/groupremove',apiData,config)
+      const {data}=await axios.put(`${api}/api/chat/groupremove`,apiData,config)
       existuser._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain)
       setLoading(false)
@@ -84,7 +85,7 @@ const UpdateGroupChatModal = ({ fetchAgain ,setFetchAgain, fetchMessages}) => {
         }
       }
       const apiData={chatId:selectedChat._id,chatName:groupName}
-      const {data}=await axios.put('/api/chat/rename',apiData,config)
+      const {data}=await axios.put(`${api}/api/chat/rename`,apiData,config)
       setSelectedChat(data)
       setFetchAgain(!fetchAgain)
       setRenameLoading(false)
@@ -115,7 +116,7 @@ const UpdateGroupChatModal = ({ fetchAgain ,setFetchAgain, fetchMessages}) => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `/api/user?search=${username}`,
+        `${api}/api/user?search=${username}`,
         config
       );
       setSearchResults(data);
@@ -161,7 +162,7 @@ const UpdateGroupChatModal = ({ fetchAgain ,setFetchAgain, fetchMessages}) => {
         }
       }
       const apiData={chatId:selectedChat._id,userId:newUser._id}
-      const {data}=await axios.put('/api/chat/groupadd',apiData,config)
+      const {data}=await axios.put(`${api}/api/chat/groupadd`,apiData,config)
       setSelectedChat(data)
       setFetchAgain(!fetchAgain)
       setLoading(false)

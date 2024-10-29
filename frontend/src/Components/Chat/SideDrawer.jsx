@@ -17,6 +17,7 @@ import {
   useToast,
   Spinner,
 } from "@chakra-ui/react";
+const api=import.meta.env.VITE_API_URL
 import { MenuButton } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { BiChevronDown } from "react-icons/bi";
@@ -54,7 +55,7 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         }
       }
-      const {data}=await axios.post('/api/chat',{userId},config)
+      const {data}=await axios.post(`${api}/api/chat`,{userId},config)
       if(!chats.find((chat)=>chat._id===data._id)) setChats((temp)=>[...temp,data])
       setLoadingChat(false)
       setSelectedChat(data)
@@ -90,7 +91,7 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(`${api}/api/user?search=${search}`, config);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {

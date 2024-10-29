@@ -6,7 +6,7 @@ import chatRoutes from "./routes/chatRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import mongoose from "mongoose";
-
+import cors from 'cors'
 import { Server } from "socket.io";
 
 // Creating an App;
@@ -22,6 +22,13 @@ connectDB().then(() => {
 }).catch((err)=>{
   console.log('MongoDB connectivity failed!')
 });
+
+const corsOptions = {
+  origin: 'https://chaitalk.vercel.app/', // Allow requests only from this origin
+  optionsSuccessStatus: 200, // For legacy browser support
+};
+
+app.use(cors(corsOptions))
 
 // Middlewares for app.
 app.use(express.json());

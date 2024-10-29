@@ -5,7 +5,7 @@ import { Box, Button, useToast, Stack,Text } from "@chakra-ui/react";
 import axios from "axios";
 import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./GroupChatModal";
-
+const api=import.meta.env.VITE_API_URL
 const MyChats = ({fetchAgain}) => {
   const { selectedChat, setSelectedChat, user, chats, setChats } =getChatContext();
   const toast = useToast();
@@ -23,7 +23,7 @@ const MyChats = ({fetchAgain}) => {
         },
       };
       const { data } = await axios.get(
-        "/api/chat",
+        `${api}/api/chat`,
         config
       );
       setChats(data);

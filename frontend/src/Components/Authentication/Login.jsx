@@ -12,8 +12,11 @@ import { useToast } from "@chakra-ui/react";
 import { data } from "autoprefixer";
 import { Helmet } from "react-helmet";
 import axios from 'axios'
+const api=import.meta.env.VITE_API_URL
+
 
 const Login = () => {
+  console.log(api)
   const toast = useToast();
   const [form, setForm] = useState({ emailLogin: "", passwordLogin: "" });
   const [loading, setLoading] = useState(false);
@@ -46,7 +49,7 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/user/login", { ...form }, config);
+      const { data } = await axios.post(`${api}/api/user/login`, { ...form }, config);
       
       toast({
         title: 'Login Successful',
