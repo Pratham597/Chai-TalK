@@ -91,7 +91,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     try {
-      socket = io(`${api}`);
+      socket = io(`${api}:3000`);
       socket.emit("setup", user);
       socket.on("connected", () => setSocketConnected(true));
 
