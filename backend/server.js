@@ -26,27 +26,10 @@ connectDB().then(() => {
 
 app.use(cors())
 
-// Middlewares for app.
-app.use(express.json());
-
-// Handling the apis.
-
-app.use("/api/user", userRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/message", messageRoutes);
-
-//Error handling.
-app.use(notFound);
-app.use(errorHandler);
-
-app.use((req, res, next) => {
-  // console.log(req.originalUrl);
-  return next();
-});
-
 const server = app.listen(port, () => {
   console.log("App is listening on given port ");
 });
+
 
 const io = new Server(server, {
   cors: {
@@ -95,3 +78,21 @@ io.on("connection", (socket) => {
     socket.leave(userData._id);
   })
 });
+
+// Middlewares for app.
+app.use(express.json());
+
+// Handling the apis.
+
+app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
+
+//Error handling.
+app.use(notFound);
+app.use(errorHandler);
+
+
+
+
+
