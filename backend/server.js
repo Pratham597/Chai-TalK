@@ -23,12 +23,8 @@ connectDB().then(() => {
   console.log('MongoDB connectivity failed!')
 });
 
-const corsOptions = {
-  origin: 'https://chaitalk.vercel.app/', // Allow requests only from this origin
-  optionsSuccessStatus: 200, // For legacy browser support
-};
 
-app.use(cors(corsOptions))
+app.use(cors())
 
 // Middlewares for app.
 app.use(express.json());
