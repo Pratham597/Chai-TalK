@@ -49,7 +49,7 @@ const server = app.listen(port, () => {
 });
 
 const io = new Server(server, {
-  pingTimeout:6000,
+  pingTimeout:30000,
   cors: {
     origin: 'https://chaitalk.vercel.app', //  frontend URL
     methods: ['GET', 'POST'],
