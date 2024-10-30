@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
+import { useState,useRef} from "react";
 import { getChatContext } from "../../Context/ChatProvider";
 import {
   Box,
@@ -88,7 +88,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setLoading(false);
     }
   };
-
+  const scrollRef = useRef(null);
   useEffect(() => {
     try {
       socket = io(`${api}`,{
@@ -143,6 +143,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         setMessageDate(groupMessagesByDate([...messages, newMessage]));
       }
     });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   });
 
   const sendMessage = async (e) => {
@@ -243,7 +246,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <Spinner size={"lg"} margin={"auto"} />
             ) : (
               <>
-                <VStack align="stretch" spacing={3} className="messages">
+                <VStack align="stretch" spacing={3} className="messages" ref={scrollRef}>
                   {Object.keys(messageDate).map((date) => (
                     <Box key={date} py={4}>
                       <Text
