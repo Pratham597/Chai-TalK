@@ -100,7 +100,7 @@ const MyChats = ({fetchAgain}) => {
                 key={chat._id}
               >
                 <Text fontFamily={'Open sans'}>{!chat.isGroupChat ? getSender(chat) : chat.chatName}</Text>
-                <Text fontSize={'sm'} fontWeight={'200'} fontFamily={'Open sans'}>{`${chat.latestMessage?.sender.name}: ${chat.latestMessage?.content}`}</Text>
+                <Text fontSize={'sm'} fontWeight={'200'} fontFamily={'Open sans'}>{`${chat.latestMessage?chat.latestMessage.sender.name:`${user.name}`}: ${chat.latestMessage?chat.latestMessage.content:'No messages'}`}</Text>
               </Box>
             ))}
           </Stack>

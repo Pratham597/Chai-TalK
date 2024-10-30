@@ -16,6 +16,7 @@ import {
   Input,
   useToast,
   Spinner,
+  useBreakpointValue
 } from "@chakra-ui/react";
 const api=import.meta.env.VITE_API_URL
 import { MenuButton } from "@chakra-ui/react";
@@ -46,6 +47,7 @@ const SideDrawer = () => {
     navigate("/");
   };
 
+  const chevronIcon = useBreakpointValue({ sm: <BiChevronDown />});
   const accessChat= async (userId)=>{
     setLoadingChat(true)
     try {
@@ -119,6 +121,7 @@ const SideDrawer = () => {
         bg="white"
         alignItems="center"
         p="5px 10px 10px 5px"
+        
         borderWidth="5px"
       >
         <Tooltip label="Search users to chat" hasArrow placement="bottom-end">
@@ -131,13 +134,13 @@ const SideDrawer = () => {
         </Tooltip>
 
         <Text fontSize="2xl" fontFamily="Open sans"  >
-          <i class="fa-brands fa-rocketchat" style={{marginRight:'10px'}} ></i>
-          Chai-TalK
+          <i class="fa-brands fa-rocketchat fa-lg"  ></i>
+          <span className="hidden sm:inline sm:ml-2 ml-0" >Chai-TalK</span>
         </Text>
 
         <div>
-          <Menu>
-            <MenuButton p={1} marginRight={'15px'}>
+          <Menu  >
+            <MenuButton p={1} marginRight={{base:'0px', sm:'15px'}}>
             <Badge max={99} badgeContent={notification.length} color="error">
               <CgMail size={'23px'} />
             </Badge>
@@ -159,8 +162,8 @@ const SideDrawer = () => {
             </MenuList>
           </Menu>
 
-          <Menu>
-            <MenuButton as={Button} rightIcon={<BiChevronDown />}>
+          <Menu >
+            <MenuButton as={Button} rightIcon={chevronIcon} p={{base:'0px',sm:'2',md:'4'}} >
               <Avatar
                 size="sm"
                 cursor="pointer"
