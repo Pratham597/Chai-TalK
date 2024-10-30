@@ -92,7 +92,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     try {
       socket = io(`${api}`,{
-  
         reconnection:true,
         reconnectionAttempts:5
       });

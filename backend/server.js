@@ -1,6 +1,5 @@
 import express from "express";
 import "dotenv/config";
-
 import userRoutes from "../backend/routes/userRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
@@ -13,6 +12,14 @@ import { createServer } from "http";
 // Creating an App;
 const app = express();
 const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*',
+  },
+  allowEIO3 :true
+});
+
 const port = process.env.PORT;
 
 async function connectDB() {
@@ -30,12 +37,7 @@ app.use(cors())
 
 
 
-const io = new Server(httpServer, {
-  cors: {
-    origin: '*',
-  },
-  allowEIO3 :true
-});
+
 
 io.on("connection", (socket) => {
   console.log("Socket is connected");
