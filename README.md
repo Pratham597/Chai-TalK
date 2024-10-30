@@ -17,7 +17,7 @@ Uses Socket.io for real time communication and stores user details in encrypted 
 
 https://chaitalk.vercel.app/
 
-![alt text](ChaiTalk.png)
+![alt text](ReadmeImages/App.png)
 
 ## Run Locally
 
@@ -66,16 +66,20 @@ Start the client
 
 - Authentication: Email Verification via OTP.
 
-    ![alt text](LoginSS.png)
+    ![alt text](ReadmeImages/Login.png)
 
 - Real Time Chatting
-
-    
+  
+    ![alt text](ReadmeImages/RealTime.png)
 
 - One-To-One Chats
-
+    ![alt text](ReadmeImages/RealTime.png)
 - Create Group Chats
-
+    ![alt text](ReadmeImages/GroupChats.png)
 - Notifications
+  ![alt text](ReadmeImages/Notifications.png)
 
-- Fully Responsive
+
+## Authors
+
+- [@Pratham](https://www.github.com/Pratham597)
