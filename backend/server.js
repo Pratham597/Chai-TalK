@@ -20,24 +20,12 @@ const io = new Server(httpServer, {
   allowEIO3 :true
 });
 
-const port = process.env.PORT;
-
-async function connectDB() {
-  await mongoose.connect(process.env.DB_URL);
-}
-
-connectDB().then(() => {
-  console.log("MongoDB is connected successfully");
-}).catch((err)=>{
-  console.log('MongoDB connectivity failed!')
-});
-
+const port = process.env.PORT||3000;
 
 app.use(cors())
 
-
-
-
+// Middlewares for app.
+app.use(express.json());
 
 io.on("connection", (socket) => {
   console.log("Socket is connected");
@@ -80,8 +68,23 @@ io.on("connection", (socket) => {
   })
 });
 
-// Middlewares for app.
-app.use(express.json());
+
+
+
+// Connecting MongoDB
+
+async function connectDB() {
+  await mongoose.connect(process.env.DB_URL);
+}
+
+connectDB().then(() => {
+  console.log("MongoDB is connected successfully");
+}).catch((err)=>{
+  console.log('MongoDB connectivity failed!')
+});
+
+
+
 
 // Handling the apis.
 
@@ -93,8 +96,9 @@ app.use("/api/message", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
+// Start the server
 httpServer.listen(port, () => {
-  console.log("App is listening on given port ");
+  console.log(`App is listening on port ${port}`);
 });
 
 
